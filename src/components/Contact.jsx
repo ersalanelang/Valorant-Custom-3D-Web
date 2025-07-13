@@ -27,7 +27,7 @@ const Contact = () => {
             src="img/swordman-partial.webp"
           /><ImageClipBox 
             clipClass="sword-man-clip-path md:scale-125"
-            src="img/contact-3.jpg"
+            src="img/swordman.webp"
           />
         </div>
         <div className="flex flex-col items-center text-center">

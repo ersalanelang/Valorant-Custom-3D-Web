@@ -64,6 +64,29 @@ body {
 }
 
 @layer utilities {
+    .absolute-center {
+        @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%];
+    }
+    .flex-center {
+        @apply flex justify-center items-center;
+    }
+    .mask-clip-path {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+    .special-font b {
+        font-family: "Zentry";
+        font-feature-settings: "ss01" on;
+    }
+    .hero-heading {
+        @apply font-Valorant font-thin text-5xl sm:right-10 sm:text-7xl md:text-9xl lg:text-[7rem] tracking-tighter;
+    }
+    .hero-heading2 {
+        @apply uppercase font-thin font-zentry text-5xl sm:right-10 sm:text-7xl md:text-9xl lg:text-[9rem] tracking-tighter;
+    }
+    .story-heading {
+        @apply uppercase font-thin font-zentry text-5xl  sm:text-7xl md:text-9xl lg:text-[10rem] tracking-[0.04em] lg:tracking-[0.03em];
+    }
+
     /* Custom CSS untuk halaman HERO */
     /* Animated Button */
     .btn-clip {
@@ -73,6 +96,20 @@ body {
     }
     .btn-clip:hover {
       border-radius: 4px;
+    }
+    /*======================================== */
+
+    /* Custom CSS untuk Animated Title */
+    /* Animated Navigation Background - Untuk */
+    .animated-title {
+        @apply flex flex-col font-thin uppercase gap-1 leading-[.8] text-white sm:px-32 tracking-[0.001em];
+    }
+    .animated-word {
+        font-family: var(--font-zentry);
+        opacity: 0;
+        transform: translate3d(10px, 51px, -60px) rotateY(60deg) rotateX(-40deg);
+        transform-origin: 50% 50% -150px !important;
+        will-change: opacity, transform;
     }
     /*======================================== */
 
@@ -143,14 +180,34 @@ body {
         height: 36px;
       }
     }
+    .floating-nav {
+        @apply bg-black rounded-lg border;
+    }
     /*======================================== */
-
-    /* Custom CSS untuk animasi Di Features */
-    /* border putih Zigma */
+    
+    /* Custom CSS untuk Aboutr */
+    /* Animated Navigation Background - Untuk */
     .about-image {
         @apply absolute left-1/2 top-0 z-20 h-[60vh] w-96 origin-center -translate-x-1/2 overflow-hidden rounded-3xl md:w-[30vw];
         clip-path: polygon(25% 15%, 90% 0%, 75% 85%, 10% 100%);
     }
+    /*======================================== */
+
+    /* Custom CSS untuk Animated Title */
+    /* Animated Navigation Background - Untuk */
+    .about-subtext {
+        @apply absolute md:bottom-[-75dvh] left-1/2 w-full max-w-96 -translate-x-1/2 text-center font-semibold font-robert-regular text-lg md:max-w-[38rem] md:text-[1.4rem] tracking-[0.01em];
+    }
+    .about-subsubtext {
+        @apply absolute md:bottom-[-98dvh] left-1/2 w-full max-w-96 -translate-x-1/2 text-center font-circular-web text-lg md:max-w-[37rem];
+    }
+    .about-heading {
+        @apply uppercase font-zentry text-7xl sm:right-10 sm:text-7xl md:text-[6rem] lg:text-[9rem] tracking-[0.01em];
+    }
+    /*======================================== */
+
+    /* Custom CSS untuk animasi Di Features */
+    /* border putih Zigma */
     .border-hsla {
         @apply border border-white/20;
         transition: transform 0.3s ease-out;
@@ -167,53 +224,8 @@ body {
     }
     /*======================================== */
 
-    .floating-nav {
-        @apply bg-black rounded-lg border;
-    }
-    .absolute-center {
-        @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%];
-    }
-    .flex-center {
-        @apply flex justify-center items-center;
-    }
-    .mask-clip-path {
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    }
-    .special-font b {
-        font-family: "Zentry";
-        font-feature-settings: "ss01" on;
-    }
-    .hero-heading {
-        @apply font-Valorant font-thin text-5xl sm:right-10 sm:text-7xl md:text-9xl lg:text-[7rem] tracking-tighter;
-    }
-    .hero-heading2 {
-        @apply uppercase font-thin font-zentry text-5xl sm:right-10 sm:text-7xl md:text-9xl lg:text-[9rem] tracking-tighter;
-    }
-    .story-heading {
-        @apply uppercase font-thin font-zentry text-5xl  sm:text-7xl md:text-9xl lg:text-[10rem] tracking-[0.04em] lg:tracking-[0.03em];
-    }
-    /*======================================== */
-
-    .about-subtext {
-        @apply absolute md:bottom-[-75dvh] left-1/2 w-full max-w-96 -translate-x-1/2 text-center font-semibold font-robert-regular text-lg md:max-w-[38rem] md:text-[1.4rem] tracking-[0.01em];
-    }
-    .about-subsubtext {
-        @apply absolute md:bottom-[-98dvh] left-1/2 w-full max-w-96 -translate-x-1/2 text-center font-circular-web text-lg md:max-w-[37rem];
-    }
-    .about-heading {
-        @apply uppercase font-zentry text-7xl sm:right-10 sm:text-7xl md:text-[6rem] lg:text-[9rem] tracking-[0.01em];
-    }
-    .animated-title {
-        @apply flex flex-col font-thin uppercase gap-1 leading-[.8] text-white sm:px-32 tracking-[0.001em];
-    }
-    .animated-word {
-        font-family: var(--font-zentry);
-        opacity: 0;
-        transform: translate3d(10px, 51px, -60px) rotateY(60deg) rotateX(-40deg);
-        transform-origin: 50% 50% -150px !important;
-        will-change: opacity, transform;
-    }
-    /*======================================== */
+    /* Custom CSS untuk Story */
+    /* Animated Navigation Background - Untuk */
     .story-img-container {
         @apply relative md:h-dvh h-[90vh] w-full;
         filter: url("#flt_tag");
@@ -226,25 +238,29 @@ body {
         @apply absolute w-full md:h-dvh h-[50dvh] opacity-100 left-10 top-16 md:left-0 md:top-10 lg:left-[-300px] lg:top-[-100px];
         transform: translate3d(0, 0, 0) rotateX(0) rotateY(0) rotateZ(0) scale(1);
     }
-    
+    /*======================================== */
+
+    /* Custom CSS untuk Contact */
+    /* Animated Navigation Background - Untuk */
+    .sword-man-clip-path {
+        clip-path: polygon(83% 11%, 91% 57%, 70% 100%, 15% 76%, 26% 3%);
+    }
+    .contact-clip-path-1 {
+        clip-path: polygon(52% 9%, 77% 34%, 63% 65%, 16% 74%, 9% 22%);
+    }
+    .contact-clip-path-2 {
+        clip-path: polygon(29% 15%, 85% 30%, 50% 100%, 10% 64%);
+    }
+    /*======================================== */
+        
     .gallery-img-container {
         @apply size-64 overflow-hidden bg-violet-300;
     }
     .gallery-img {
         @apply size-full bg-cover;
     }
-
     .gallery-img-4 {
         @apply sm:size-80 md:h-96 md:w-[25rem] rounded-lg;
-    }
-    .sword-man-clip-path {
-        clip-path: polygon(16% 0, 89% 15%, 75% 100%, 0 97%);
-    }
-    .contact-clip-path-1 {
-        clip-path: polygon(25% 0%, 74% 0, 69% 64%, 34% 73%);
-    }
-    .contact-clip-path-2 {
-        clip-path: polygon(29% 15%, 85% 30%, 50% 100%, 10% 64%);
     }
   }
 

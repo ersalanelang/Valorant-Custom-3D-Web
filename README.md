@@ -1,5 +1,4 @@
-````md
-# 🧠 Valorant Custom UI Website
+## 🧠 Valorant Custom UI Website
 
 React.js • GSAP • TailwindCSS
 
@@ -93,6 +92,3 @@ This project was created **purely for educational purposes** and as a **portfoli
 * Valorant is a trademark of Riot Games.
 * All Valorant-related assets belong to Riot Games.
 * Zentry.com design inspiration is credited and not used commercially.
-
-```
-```
