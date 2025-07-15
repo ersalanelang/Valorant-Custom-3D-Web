@@ -5,8 +5,10 @@ import { useState, useRef, useEffect } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 import { ScrollTrigger } from "gsap/all";
 
-gsap.registerPlugin(ScrollTrigger)
 import Button from "./Button";
+import RoundedBorder from "./RoundedBorder"
+
+gsap.registerPlugin(ScrollTrigger)
  
 const Hero = () => {
 
@@ -14,6 +16,8 @@ const Hero = () => {
 	const [hasClicked, setHasClicked] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [loadedVideos, setLoadedVideos] = useState(0);
+	const [isScrolled, setIsScrolled] = useState(false); // State untuk tracking scroll
+	const [isAnimating, setIsAnimating] = useState(false); // State untuk mencegah spam klik
 
 	const totalVideos = 4;
 	const nextVideoRef = useRef(null);
@@ -78,6 +82,9 @@ const Hero = () => {
     };
 
     const handleMouseMove = (e) => {
+      // Jangan jalankan animasi mouse jika sudah scroll
+      if (isScrolled) return;
+      
       isHovering = true;
       const { left, top, width, height } = el.getBoundingClientRect();
       const x = e.clientX - left - width / 2;
@@ -99,6 +106,8 @@ const Hero = () => {
     };
 
     const handleMouseLeave = () => {
+      if (isScrolled) return;
+      
       isHovering = false;
       stopBreathing();
 
@@ -115,7 +124,7 @@ const Hero = () => {
 
     // Cek setiap 1 detik apakah posisi mouse tetap (berarti idle)
     const interval = setInterval(() => {
-      if (!isHovering) return;
+      if (!isHovering || isScrolled) return;
 
       const currentMouseX = lastMouseX;
       const currentMouseY = lastMouseY;
@@ -139,7 +148,7 @@ const Hero = () => {
       clearInterval(interval);
       stopBreathing();
     };
-  }, []);
+  }, [isScrolled]);
 
   // animasi load video
   useEffect(() => {
@@ -152,13 +161,18 @@ const Hero = () => {
 
   
 	const handleMiniVdClick = () => {
+    // Cegah klik jika sudah scroll atau sedang animasi
+    if (isScrolled || isAnimating) return;
+    
     if (nextVideoRef.current.readyState >= 3) {
+      setIsAnimating(true); // Set animating ke true
       setHasClicked(true);
       setCurrentIndex(upcomingVideoindex);
       setVideoTitle(videoTitles[upcomingVideoindex - 1]);
     } else {
       // Tunggu sampai ready
       nextVideoRef.current.oncanplay = () => {
+        setIsAnimating(true); // Set animating ke true
         setHasClicked(true);
         setCurrentIndex(upcomingVideoindex);
       };
@@ -178,6 +192,10 @@ const Hero = () => {
           duration: 1,
           ease: 'power2.out',
           onStart: () => nextVideoRef.current.play(),
+          onComplete: () => {
+            // Set animating ke false setelah animasi selesai
+            setIsAnimating(false);
+          }
         });
         gsap.from('#current-video',{
           transformOrigin: "center center",
@@ -203,29 +221,34 @@ const Hero = () => {
         end: "bottom top", // End point untuk keseluruhan animasi
         scrub: true,
         // markers: true, // Uncomment untuk debugging
+        onUpdate: (self) => {
+          // Set isScrolled ke true ketika scroll progress > 0
+          if (self.progress > 0) {
+            setIsScrolled(true);
+          } else {
+            setIsScrolled(false);
+          }
+        }
       }
     });
 
     // Kondisi awal
     gsap.set("#video-frame", {
       clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-      borderRadius: "0% 0% 0% 0%",
     });
 
     // Tahap 1: kotak -> bentuk pertama
     tl.to("#video-frame", {
-      clipPath: "polygon(14% 9%, 72% 14%, 84% 88%, 9% 79%)",
-      borderRadius: "0% 0% 40% 10%",
-      ease: "expoScale(0.5, 7, none)",
-      duration: 1, // Durasi relatif dalam timeline
+      clipPath: "polygon(20% 0%, 80% 0%, 100% 95%, 0 100%)",
+      ease: "power1.inOut",
+      duration: 1,
     })
     
     // Tahap 2: bentuk pertama -> bentuk kedua
     .to("#video-frame", {
-      clipPath: "polygon(26% 11%, 59% 17%, 84% 88%, 2% 55%)",
-      borderRadius: "0% 0% 50% 20%",
-      ease: "expoScale(0.5, 7, none)",
-      duration: 1, // Durasi relatif dalam timeline
+      clipPath: "polygon(28% 10%, 72% 9%, 84% 79%, 10% 83%)",
+      ease: "power1.inOut",
+      duration: 1,
     });
   });
   
@@ -245,8 +268,18 @@ const Hero = () => {
         className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
       >
 				<div>
-					<div ref={maskRef} className="mask-clip-path border-black absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
-						<div onClick={handleMiniVdClick} className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100">
+					<div 
+            ref={maskRef} 
+            className={`mask-clip-path border-black absolute-center absolute z-50 size-64 overflow-hidden rounded-lg rounded-border ${
+              isScrolled ? 'pointer-events-none' : 'cursor-pointer'
+            }`}
+          >
+						<div 
+              onClick={handleMiniVdClick} 
+              className={`origin-center scale-50 opacity-0 transition-all duration-500 ease-in ${
+                !isScrolled ? 'hover:scale-100 hover:opacity-100' : ''
+              }`}
+            >
 							<video
                 ref={nextVideoRef}
                 src={getVideoSrc(upcomingVideoindex)}
@@ -257,7 +290,9 @@ const Hero = () => {
                 onLoadedData={handleVideoLoad}
 							/>
 						</div>
-					</div>
+          </div>
+          <RoundedBorder />
+
           <video
             ref={nextVideoRef}
             src={getVideoSrc(currentIndex)}
@@ -267,6 +302,7 @@ const Hero = () => {
             className="absolute-center invisible absolute z-20 size-64 object-cover object-center"
             onLoadedData={handleVideoLoad}
           />
+          
           <video
             src={getVideoSrc(
               currentIndex === totalVideos - 1 ? 1 : currentIndex
@@ -293,15 +329,15 @@ const Hero = () => {
               id="watch-trailer"
               title="Watch trailer"
               rightIcon={<TiLocationArrow />}
-              containerClass="bg-red-50 flex-center px-6 py-3 btn-clip hover:bg-white-100"
+              containerClass="btn-clip bg-red-50 flex-center px-6 py-3 hover:bg-white-100"
             />
           </div>
         </div>
 			</div>
-        <h1 className="special-font hero-heading absolute bottom-5 right-5 text-black">
-          {videoTitle}
-        </h1>
-		</div>
+      <h1 className="special-font hero-heading absolute bottom-5 right-5 text-black">
+        {videoTitle}
+      </h1>
+	  </div>
   )
 }
 

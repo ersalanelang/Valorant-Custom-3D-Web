@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
 
 import AnimatedTitle from "./AnimatedTitle";
+import RoundedBorder from "./RoundedBorder"
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -158,7 +159,7 @@ const About = () => {
   }, [isScrollAnimationActive, isAnimationCompleted]);
 
   return (
-    <div id="about" className="min-h-screen w-screen">
+    <div id="about" className=" relative min-h-screen w-screen">
       <div className="relative mb-8 mt-36 flex flex-col items-center gap-5">
         <p className="font-Valorant text-sm md:text-[11px]">
           Welcome to vALORANT
@@ -166,19 +167,21 @@ const About = () => {
 
         <AnimatedTitle
           title="A 5v5 t<b>a</b>ctical sho<b>o</b>ter featuring <br /> agents <b>w</b>ith unique abili<b>t</b>ies"
-          containerClass="special-font text-7xl text-[82px] mt-5 !text-black text-center "
+          containerClass="special-font text-5xl mt-5 !text-black text-center md:text-7xl"
         />
 
-        <div >
-          <p className="about-subtext">DEFY THE LIMITS</p>
-          <p className="about-subsubtext text-gray-700">
-            Blend your style and experience on a global, competitive stage. You have 13 rounds to attack and defend your side using sharp gunplay and tactical abilities. And, with one life per-round, you&rsquo;ll need to think faster than your opponent if you want to survive. Take on foes across Competitive and Unranked modes as well as Deathmatch and Spike Rush.
+        <div class="absolute left-1/2 w-full max-w-[19rem] bottom-[-90dvh] -translate-x-1/2 text-center md:bottom-[-81dvh] md:max-w-[38rem]">
+          <p class="about-subtext">
+            <b>DEFY THE LIMIT--</b>
+            <span class="about-subsubtext ">
+              Compete globally with tactical gunplay across 13 rounds. One life per round, think fast or fall. Battle in Competitive, Unranked, Deathmatch, and Spike Rush modes.
+            </span>
           </p>
         </div>
       </div>
 
-      <div ref={polygonRef} className="h-dvh w-screen " id="clip">
-        <div className="mask-clip-path about-image">
+      <div ref={polygonRef} className="about-img-container rounded-border" id="clip">
+        <div className="mask-clip-path about-image ">
           <img
             src="img/entrance2.jpg"
             alt="Background"
@@ -186,6 +189,7 @@ const About = () => {
           />
         </div>
       </div>
+      <RoundedBorder />
     </div>
   );
 };

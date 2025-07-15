@@ -111,13 +111,13 @@ export const BentoCard = ({ src, title, description, isComingSoon, videoStyle, i
 };
 
 const Features = () => (
-  <section className="bg-black pb-52">
+  <section className="bg-black pb-35">
     <div className="container mx-auto px-3 md:px-30">
       <div className="px-5 py-20">
         <p className="font-circular-web text-lg text-blue-50">
           Into the Tactical Realm
         </p>
-        <p className="max-w-md font-circular-web text-lg text-blue-50 opacity-50">
+        <p className="max-w-md font-circular-web text-lg text-left text-blue-50 opacity-50">
           Immerse yourself in Valorant&rsquo;s shifting battlefield, where strategy, precision, and every decision shape your path to mastery.
           Each round is a story, written by your aim, your choices, and your growth as an agent.
         </p>
@@ -133,12 +133,12 @@ const Features = () => (
           }
           description="Stay updated with the latest Valorant patches, meta shifts, and global tournament highlights"
           isComingSoon
-          isVideo={true} // PERUBAHAN: Tambahkan prop isVideo={true}
+          isVideo={true} 
         />
       </BentoTilt>
 
-      <div className="grid h-[135vh] w-full grid-cols-2 grid-rows-3 gap-7">
-        <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2">
+      <div className="grid h-[170vh] grid-cols-2 grid-rows-5 gap-7 md:grid-rows-3 md:h-[140vh]">
+        <BentoTilt className="bento-tilt_1 col-span-2 md:col-span-1 md:row-span-2">
           <BentoCard
             src="videos/feature-2.mp4"
             title={
@@ -156,7 +156,7 @@ const Features = () => (
           />
         </BentoTilt>
 
-        <BentoTilt className="bento-tilt_1 row-span-1 ms-32 md:col-span-1 md:ms-0">
+        <BentoTilt className="bento-tilt_1 col-span-2 ms-15 md:col-span-1 md:ms-0">
           <BentoCard
             src="img/feature-3.webp"
             title={
@@ -170,7 +170,7 @@ const Features = () => (
           />
         </BentoTilt>
 
-        <BentoTilt className="bento-tilt_1 me-14 md:col-span-1 md:me-0">
+        <BentoTilt className="bento-tilt_1 col-span-2 me-15 md:col-span-1 md:me-0">
           <BentoCard
             src="img/feature-2.gif"
             title={
@@ -188,7 +188,7 @@ const Features = () => (
           />
         </BentoTilt>
 
-        <BentoTilt className="bento-tilt_1">
+        <BentoTilt className="bento-tilt_1 col-span-2 ms-15 md:col-span-1 md:ms-0">
           {/* <div className="flex size-full flex-col justify-between bg-violet-300 p-5">
             <h1 className="bento-title special-font max-w-64 text-black">
               M<b>o</b>re co<b>m</b>ing s<b>o</b>on.
@@ -211,7 +211,7 @@ const Features = () => (
           />
         </BentoTilt>
 
-        <BentoTilt className="bento-tilt_1">
+        <BentoTilt className="bento-tilt_1 col-span-2 me-15 md:col-span-1 md:me-0">
           <img
             src="img/feature-6.gif"
             loop

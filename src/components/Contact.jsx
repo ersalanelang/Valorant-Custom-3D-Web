@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from "./Button";
+import { TiLocationArrow } from "react-icons/ti";
 
 const ImageClipBox = ({src, clipClass }) => (
   <div className={clipClass}>
@@ -21,7 +22,7 @@ const Contact = () => {
             src="img/contact-2.webp"
           />
         </div>
-        <div className="absolute -top-40 left-20 w-60 sm:top-1/2 md:left-auto md:right-10 lg:top-20 lg:w-80">
+        <div className="absolute -top-45 left-5 scale-[0.8] w-60 sm:top-1/2 md:scale-[1] md:left-auto md:right-10 lg:top-20 lg:w-80">
           <ImageClipBox 
             clipClass="absolute md:scale-125"
             src="img/swordman-partial.webp"
@@ -37,7 +38,11 @@ const Contact = () => {
           <p className="special-font text-white-100 mt-10 w-full font-zentry text-5xl  leading-[0.9] md:text-[6rem]"> 
             SIGN UP AND<br />Play Like a<br /> Champion
           </p>
-          <Button title="Download" containerClass="bg-white-100 mt-10 btn-clip" />
+          <Button 
+            title="Download" 
+            containerClass="btn-clip bg-white-100 mt-10 flex-center items-center justify-center hover:bg-red-50" 
+            rightIcon={<TiLocationArrow />}
+          />
         </div>
       </div>
     </div>

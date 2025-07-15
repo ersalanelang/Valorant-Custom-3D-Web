@@ -3,6 +3,7 @@ import { useRef } from "react";
 
 import Button from "./Button";
 import AnimatedTitle from "./AnimatedTitle";
+import RoundedBorder from "./RoundedBorder"
 
 const FloatingImage = () => {
   const frameRef = useRef(null);
@@ -59,7 +60,7 @@ const FloatingImage = () => {
             containerClass="special-font text-7xl md:text-[96px] mt-5 pointer-events-none mix-blend-difference relative z-10"
           />
 
-          <div className="story-img-container">
+          <div className="story-img-container rounded-border">
             <div className="story-img-mask">
               <div className="story-img-content">
                 <img
@@ -106,7 +107,7 @@ const FloatingImage = () => {
 
         <div className="-mt-80 flex w-full justify-center md:-mt-64 md:me-44 md:justify-end">
           <div className="flex h-full w-fit flex-col items-center md:items-start">
-            <p className="mt-3 max-w-sm text-center font-circular-web text-violet-50 md:text-start">
+            <p className="mt-1 md:mt-3 max-w-xs md:max-w-sm text-center font-circular-web text-violet-50 md:text-start">
               Push beyond your limits and rise above every rival in a battleground built for the bold. 
               This is your proving ground, where every decision, every shot, and every second defines your legacy.
             </p>
