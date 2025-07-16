@@ -114,8 +114,11 @@ const NavBar = () => {
   const handleUserInteraction = () => {
     if (!hasUserInteracted) {
       setHasUserInteracted(true);
-      setIsAudioPlaying(true);
-      setIsIndicatorActive(true);
+      // Start audio automatically after user interaction
+      setTimeout(() => {
+        setIsAudioPlaying(true);
+        setIsIndicatorActive(true);
+      }, 100);
     }
   };
 
@@ -143,12 +146,14 @@ const NavBar = () => {
 
   // Manage audio playback
   useEffect(() => {
-    if (isAudioPlaying && audioElementRef.current) {
-      audioElementRef.current.play().catch((error) => {
-        console.log("Audio play failed:", error);
-      });
-    } else if (audioElementRef.current) {
-      audioElementRef.current.pause();
+    if (audioElementRef.current) {
+      if (isAudioPlaying) {
+        audioElementRef.current.play().catch((error) => {
+          console.log("Audio play failed:", error);
+        });
+      } else {
+        audioElementRef.current.pause();
+      }
     }
   }, [isAudioPlaying]);
 
@@ -185,6 +190,15 @@ const NavBar = () => {
       ref={navContainerRef}
       className="fixed inset-x-0 top-2 z-50 h-14 border-none transition-all duration-700 sm:inset-x-6"
     >
+      {/* Single audio element for the entire component */}
+      <audio
+        ref={audioElementRef}
+        className="hidden"
+        src="/audio/loop.mp3"
+        loop
+        preload="auto"
+      />
+      
       <header className="absolute top-1/2 w-full -translate-y-1/2">
         <nav className="flex size-full items-center justify-between p-4">
           {/* Logo and Product button */}
@@ -253,12 +267,6 @@ const NavBar = () => {
               onClick={toggleAudioIndicator}
               className="hidden md:flex ml-10 items-center space-x-0.5 cursor-pointer"
             >
-              <audio
-                ref={audioElementRef}
-                className="hidden"
-                src="/audio/loop.mp3"
-                loop
-              />
               {[1, 2, 3, 4].map((bar) => (
                 <div
                   key={bar}
@@ -298,12 +306,6 @@ const NavBar = () => {
                 >
                   <span>{isAudioPlaying ? 'SOUND ON' : 'SOUND OFF'}</span>
                   <div className="flex items-center space-x-0.5">
-                    <audio
-                      ref={audioElementRef}
-                      className="hidden"
-                      src="/audio/loop.mp3"
-                      loop
-                    />
                     {[1, 2, 3, 4].map((bar) => (
                       <div
                         key={bar}

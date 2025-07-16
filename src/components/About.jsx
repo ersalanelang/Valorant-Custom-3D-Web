@@ -53,6 +53,7 @@ const About = () => {
         scrub: 0.3,
         pin: true,
         pinSpacing: true,
+        invalidateOnRefresh: true,
         onUpdate: (self) => {
           // Nonaktifkan animasi mouse selama scroll berlangsung
           setIsScrollAnimationActive(self.progress > 0);
